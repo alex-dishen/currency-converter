@@ -1,43 +1,10 @@
-<!-- Header -->
-<header>
-  <div class="headerWrapper">
-    <div class="logo">
-      <img src="../favicon.ico" alt="">
-      <span><div>Currency</div> Swap</span>
-    </div>
-    <div class="currentValue">
-      <span>$ 39.25 / 39.75</span>
-      <span>€ 40.4 / 41.4</span>
-    </div>
-  </div>
-</header>
-
+<app-header></app-header>
 <main>
   <div class="mainWrapper">
     <div class="pitch">
       <div>Trusted and secure</div>
       <div>currency exchange</div>
     </div>
-    <div class="converter">
-      <div class="convertFrom">
-        <input type="text">
-        |
-        <select name="" id="">
-          <option value="UAH">UAH</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-      </div>
-      <div class="arrow"><img src="../assets/arrow.svg" alt="Arrow"></div>
-      <div class="convertTo">
-        <input type="text">
-        |
-        <select name="" id="">
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="UAH">UAH</option>
-        </select>
-      </div>
-    </div>
+    <app-converter></app-converter>
   </div>
 </main>
