@@ -14,14 +14,14 @@
             [value]="leftToRight ? leftInput.value : result"
             (input)="
               leftToRight = true;
-              convert(+leftInput.value);
+              convert(leftInput);
             ">
           |
           <select 
             #leftSelect
             (change)="
-              changeLeftCurrency(leftSelect.value);
-              convert(+leftInput.value)">
+              changeLeftCurrency(leftSelect);
+              convert(leftInput)">
             <option value="USD">USD</option>
             <option value="UAH">UAH</option>
             <option value="EUR">EUR</option>
@@ -38,7 +38,7 @@
             #rightInput
             (input)="
             leftToRight = false;
-            convert(+rightInput.value)
+            convert(rightInput)
             "
             [value]="leftToRight ? result : rightInput.value"
             >
@@ -46,8 +46,8 @@
           <select 
             #rightSelect
             (change)="
-              changeRightCurrency(rightSelect.value);
-              convert(+leftInput.value);
+              changeRightCurrency(rightSelect);
+              convert(leftInput);
             ">
             <option value="UAH">UAH</option>
             <option value="USD">USD</option>

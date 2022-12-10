@@ -8,36 +8,38 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ConverterComponent {
 
-  currJSON: any = [];
+  // currJSON: any = [];
   leftCurrency = 'USD';
   rightCurrency = 'UAH';
   result: string = '';
   leftToRight: boolean = true;
 
-
-  changeLeftCurrency(cur: string) {
-    this.leftCurrency = cur;
+  changeLeftCurrency(cur: any) {
+    this.leftCurrency = cur.value;
   }
 
-  changeRightCurrency(cur: string) {
-    this.rightCurrency = cur;
+  changeRightCurrency(cur: any) {
+    this.rightCurrency = cur.value;
   }
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCurrencyData("USD");
+  }
 
   define(data: any) {
-
-}
+    // this.test = data['rates'];
+    // this.test2 = Object.keys(this.test)
+  }
 
   getCurrencyData(currency: string) {
       let url = `https://api.exchangerate.host/latest?base=${currency}`;
       this.http.get(url).subscribe((data: any) => {this.define(data)})
   }
 
-  convert(digit: number) {
-    let numberToConvert = digit;
+  convert(digit: any) {
+    let numberToConvert = +digit.value;
 
     // this.http.getCurrencyData(this.leftToRight ? this.leftCurrency : this.rightCurrency).subscribe(data => {
     //   this.currJSON = JSON.stringify(data);
