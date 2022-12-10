@@ -5,7 +5,7 @@ The **Currency Converter** project is created according to the assignment from *
 
 ![Preview](src/assets/currency-converter.png)
 
-### 🔗 **Live preview** of the project is [here]().
+### 🔗 **Live preview** of the project is [here](https://alex-dishen.github.io/currency-converter/).
 
 ## **Features**
 * Ability con convert 3 currencies: USD, EUR, UAH.
