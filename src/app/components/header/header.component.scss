@@ -1,0 +1,59 @@
+header {
+    padding: 20px 40px;
+}
+
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  img {
+    height: 50px;
+  }
+
+  span {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.currentValue {
+  display: flex;
+  gap: 20px;
+}
+
+main {
+  flex: 1;
+  padding: 20px 40px;
+}
+
+.mainWrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pitch {
+  margin-top: 30px;
+
+  div:first-child {
+    text-align: center;
+    font-size: 60px;
+  }
+  
+  div:last-child {
+    text-align: center;
+    font-size: 40px;
+  }
+}
