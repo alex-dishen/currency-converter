@@ -11,11 +11,10 @@
           <input 
             type="number"
             #leftInput
-            [value]="leftToRight ? leftInput.value : result"
             (input)="
-              leftToRight = true;
-              convert(leftInput);
-            ">
+            leftToRight = true;
+            convert(leftInput)"
+            [value]="leftToRight ? leftInput.value : result">
           |
           <select 
             #leftSelect
@@ -37,8 +36,8 @@
             type="number"
             #rightInput
             (input)="
-            leftToRight = false;
-            convert(rightInput)
+              leftToRight = false;
+              convert(rightInput)
             "
             [value]="leftToRight ? result : rightInput.value"
             >

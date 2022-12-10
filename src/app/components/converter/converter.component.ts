@@ -8,11 +8,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ConverterComponent {
 
-  // currJSON: any = [];
-  leftCurrency = 'USD';
-  rightCurrency = 'UAH';
-  result: string = '';
+  currency: any;
+  currencies: any;
+
+  leftCurrency: string = 'USD';
+  rightCurrency: string = 'UAH';
+
+  result: any;
   leftToRight: boolean = true;
+
+  ngOnInit() {
+    this.getCurrencyData(this.leftCurrency);
+  }
 
   changeLeftCurrency(cur: any) {
     this.leftCurrency = cur.value;
@@ -24,53 +31,25 @@ export class ConverterComponent {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    this.getCurrencyData("USD");
-  }
-
-  define(data: any) {
-    // this.test = data['rates'];
-    // this.test2 = Object.keys(this.test)
-  }
-
   getCurrencyData(currency: string) {
-      let url = `https://api.exchangerate.host/latest?base=${currency}`;
-      this.http.get(url).subscribe((data: any) => {this.define(data)})
+    let url = `https://api.exchangerate.host/latest?base=${currency}`;
+    this.http.get(url).subscribe(data => this.currency = data);
+    return this.http.get(url)
   }
 
   convert(digit: any) {
     let numberToConvert = +digit.value;
+    if(numberToConvert === 0) {
+      this.result = ''
+      return
+    };
 
-    // this.http.getCurrencyData(this.leftToRight ? this.leftCurrency : this.rightCurrency).subscribe(data => {
-    //   this.currJSON = JSON.stringify(data);
-    //   this.currJSON = JSON.parse(this.currJSON);
+    const convertFrom = this.leftToRight ? this.leftCurrency : this.rightCurrency;
+    const convertTo = this.leftToRight ? this.rightCurrency : this.leftCurrency;
 
-    //   console.log(data)
-
-    //   if (
-    //     this.leftToRight 
-    //       ? this.rightCurrency === 'USD' 
-    //       : this.leftCurrency === 'USD'
-    //     ) {
-    //     let outcome = +this.currJSON.rates.USD * numberToConvert;
-    //     this.result = outcome.toFixed(2);
-
-    //   } else if (        
-    //     this.leftToRight 
-    //       ? this.rightCurrency === 'EUR' 
-    //       : this.leftCurrency === 'EUR'
-    //     ) {
-    //     let outcome = +this.currJSON.rates.EUR * numberToConvert;
-    //     this.result = outcome.toFixed(2);
-        
-    //   } else if (
-    //     this.leftToRight 
-    //       ? this.rightCurrency === 'UAH' 
-    //       : this.leftCurrency === 'UAH'
-    //   ) {
-    //     let outcome = +this.currJSON.rates.UAH * numberToConvert;
-    //     this.result = outcome.toFixed(2);
-    //   }
-    //   })
+    this.getCurrencyData(convertFrom).subscribe( () => {
+      this.result = this.currency['rates'][convertTo] * numberToConvert;
+      this.result = this.result.toFixed(2);
+    })
   }
 }
