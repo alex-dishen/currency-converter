@@ -31,3 +31,7 @@ npm install
 
 ng serve --open
 ```
+
+## **Navigation**
+* See my next project [Shop](https://github.com/alex-dishen/shop)
+* See my previous project [To-Do](https://github.com/alex-dishen/todo-app)
