@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ExchangeRateApiService } from '../services/exchange-rates-api-service';
 
 @Component({
   selector: 'app-header',
@@ -11,22 +11,23 @@ export class HeaderComponent {
   dollar: number = 0;
   euro: number = 0;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: ExchangeRateApiService) {}
 
   ngOnInit() {
-    this.getCurrencyData('UAH');
+    this.getCurrencyValue('USD');
+    this.getCurrencyValue('EUR')
   }
 
-  define(data: any) {
-    this.dollar = 1 / data['rates']['USD'];
-    this.euro = 1 / data['rates']['EUR'];
-
-    this.dollar = +this.dollar.toFixed(2);
-    this.euro = +this.euro.toFixed(2);
-}
-
-  getCurrencyData(currency: string) {
-      let url = `https://api.exchangerate.host/latest?base=${currency}`;
-      this.http.get(url).subscribe((data: any) => {this.define(data)})
+  getCurrencyValue(curr: string) {
+    let result;
+    
+    this.http.getCurrencyData(curr, 'UAH', 1)
+      .subscribe(data => {
+        result = +data.conversion_result.toFixed(2);
+        curr === 'USD' 
+          ? this.dollar = result
+          : this.euro = result
+      }
+    );
   }
 }

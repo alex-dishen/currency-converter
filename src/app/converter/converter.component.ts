@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ExchangeRateApiService } from '../services/exchange-rates-api-service';
 
 @Component({
   selector: 'app-converter',
@@ -8,37 +8,27 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ConverterComponent {
 
-  currency: any;
-  currencies: any;
-
   leftCurrency: string = 'USD';
   rightCurrency: string = 'UAH';
-
-  result: any;
+  result: string = '';
   leftToRight: boolean = true;
 
   ngOnInit() {
-    this.getCurrencyData(this.leftCurrency);
+    this.http.getCurrencyData('USD', 'UAH', 1);
   }
 
-  changeLeftCurrency(cur: any) {
-    this.leftCurrency = cur.value;
+  changeLeftCurrency(cur: string) {
+    this.leftCurrency = cur;
   }
 
-  changeRightCurrency(cur: any) {
-    this.rightCurrency = cur.value;
+  changeRightCurrency(cur: string) {
+    this.rightCurrency = cur;
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: ExchangeRateApiService) {}
 
-  getCurrencyData(currency: string) {
-    let url = `https://api.exchangerate.host/latest?base=${currency}`;
-    this.http.get(url).subscribe(data => this.currency = data);
-    return this.http.get(url)
-  }
-
-  convert(digit: any) {
-    let numberToConvert = +digit.value;
+  convert(digit: string) {
+    let numberToConvert = +digit;
     if(numberToConvert === 0) {
       this.result = ''
       return
@@ -47,9 +37,9 @@ export class ConverterComponent {
     const convertFrom = this.leftToRight ? this.leftCurrency : this.rightCurrency;
     const convertTo = this.leftToRight ? this.rightCurrency : this.leftCurrency;
 
-    this.getCurrencyData(convertFrom).subscribe( () => {
-      this.result = this.currency['rates'][convertTo] * numberToConvert;
-      this.result = this.result.toFixed(2);
-    })
+    this.http.getCurrencyData(convertFrom, convertTo, numberToConvert)
+      .subscribe( (data) => {
+        this.result = data.conversion_result.toFixed(2).toString();
+      })
   }
 }
